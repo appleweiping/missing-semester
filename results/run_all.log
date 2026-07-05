@@ -1,0 +1,400 @@
+
+>>> 01 course-shell
+
+=== Ex1: which shell am I using? ===
+$SHELL = /usr/bin/bash
+actual interpreter: bash
+
+=== Ex2-4: create /tmp/missing and touch a file 'semester' ===
+-rwxr-xr-x 1 admin 197121 61  7月  6 07:38 semester
+
+=== Ex5: write the two-line script (single quotes so # and ! are literal) ===
+#!/bin/sh
+curl --head --silent https://missing.csail.mit.edu
+
+=== Ex6: try ./semester before it is executable -> Permission denied ===
+HTTP/1.1 200 Connection established
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 14737
+Server: GitHub.com
+Content-Type: text/html; charset=utf-8
+Last-Modified: Tue, 09 Jun 2026 16:44:33 GMT
+Access-Control-Allow-Origin: *
+ETag: "6a2842f1-3991"
+expires: Sun, 05 Jul 2026 23:49:06 GMT
+Cache-Control: max-age=600
+x-proxy-cache: MISS
+X-GitHub-Request-Id: B278:293544:80E5EA:854AE4:6A4AEB1A
+Accept-Ranges: bytes
+Age: 0
+Date: Sun, 05 Jul 2026 23:39:06 GMT
+Via: 1.1 varnish
+X-Served-By: cache-hkg17927-HKG
+X-Cache: MISS
+X-Cache-Hits: 0
+X-Timer: S1783294747.520970,VS0,VE268
+Vary: Accept-Encoding
+X-Fastly-Request-ID: b9c0aacaea678716e0669947929ba4d6b8d5208c
+
+(unexpectedly ran)
+permissions were: -rwxr-xr-x  (no x bits)
+
+=== Ex7: run via 'sh semester' -> works because sh reads the file as input ===
+HTTP/1.1 200 Connection established
+
+HTTP/1.1 200 OK
+...(sh does not need the execute bit; it just reads the file)
+
+=== Ex8-9: chmod +x then run ./semester directly (shebang is used) ===
+permissions now: -rwxr-xr-x
+HTTP/1.1 200 Connection established
+
+HTTP/1.1 200 OK
+...the kernel reads the '#!/bin/sh' shebang and runs /bin/sh on the file
+
+=== Ex10: pipe + redirect the last-modified header into ~/last-modified.txt ===
+wrote /c/Users/admin/last-modified.txt:
+Last-Modified: Tue, 09 Jun 2026 16:44:33 GMT
+
+=== Ex11: read a value from /sys (Linux). On Windows/macOS there is no /sys. ===
+/sys not present on this platform (documented in solutions.md).
+
+=== done ===
+    [PASS] 01 course-shell
+
+>>> 02 ex1 fancy-ls
+total 66K
+drwxr-xr-x 1 admin 197121    0  7月  5 23:33 ..
+-rw-r--r-- 1 admin 197121 1.1K  7月  5 23:33 LICENSE
+-rw-r--r-- 1 admin 197121  333  7月  5 23:40 .gitattributes
+drwxr-xr-x 1 admin 197121    0  7月  5 23:43 02-shell-tools
+drwxr-xr-x 1 admin 197121    0  7月  5 23:45 03-editors-vim
+drwxr-xr-x 1 admin 197121    0  7月  5 23:46 scripts
+drwxr-xr-x 1 admin 197121    0  7月  6 07:19 07-debugging-profiling
+drwxr-xr-x 1 admin 197121    0  7月  6 07:26 .github
+drwxr-xr-x 1 admin 197121    0  7月  6 07:29 dotfiles
+drwxr-xr-x 1 admin 197121    0  7月  6 07:30 01-course-shell
+drwxr-xr-x 1 admin 197121    0  7月  6 07:30 04-data-wrangling
+drwxr-xr-x 1 admin 197121    0  7月  6 07:30 05-command-line
+drwxr-xr-x 1 admin 197121    0  7月  6 07:30 06-version-control
+drwxr-xr-x 1 admin 197121    0  7月  6 07:33 08-metaprogramming
+-rw-r--r-- 1 admin 197121  848  7月  6 07:33 .gitignore
+drwxr-xr-x 1 admin 197121    0  7月  6 07:36 09-security
+drwxr-xr-x 1 admin 197121    0  7月  6 07:37 .git
+drwxr-xr-x 1 admin 197121    0  7月  6 07:37 10-potpourri
+-rw-r--r-- 1 admin 197121  375  7月  6 07:38 requirements.txt
+-rwxr-xr-x 1 admin 197121 2.1K  7月  6 07:38 run_all.sh
+drwxr-xr-x 1 admin 197121    0  7月  6 07:38 .
+drwxr-xr-x 1 admin 197121    0  7月  6 07:38 results
+    [PASS] 02 ex1 fancy-ls
+
+>>> 02 ex3 run-until-fail
+command failed after 1 attempt(s) with exit code 1
+----- captured STDOUT -----
+----- captured STDERR -----
+    [PASS] 02 ex3 run-until-fail
+
+>>> 02 ex5 newest-file
+./results/run_all.log
+    [PASS] 02 ex5 newest-file
+
+>>> 04 ex2 words
+=== dictionary: 04-data-wrangling/data/words (99170 lines) ===
+(a+b) words with >=3 a's and no "'s" ending: 833
+
+=== three most common last-two-letters (case-insensitive) ===
+    101 an
+     63 ns
+     51 ia
+
+=== number of distinct two-letter endings: 110 ===
+
+=== (challenge) two-letter combinations that NEVER occur as an ending ===
+count of never-occurring endings: 566
+first 20 of them:
+ab af ai aj ao ap aq au av aw bb bc bd be bf bg bh bi bj bk 
+    [PASS] 04 ex2 words
+
+>>> 04 ex3 in-place sed
+=== original input.txt ===
+hello world
+foo bar
+hello again
+
+=== the WRONG way:  sed '...' input.txt > input.txt ===
+The shell opens (and truncates) input.txt for '>' BEFORE sed starts
+reading it. sed then reads an already-empty file. Result: data lost.
+--- bad.txt after the redirect trick (empty!) ---
+[bad.txt is 0 bytes]
+
+Is this particular to sed?  No — it is the SHELL doing the truncation,
+so the same footgun applies to awk, grep, tr, cat ... any 'cmd f > f'.
+
+=== the RIGHT way #1:  sed -i (in-place, from man sed) ===
+HELLO world
+foo bar
+HELLO again
+
+=== the RIGHT way #2:  write to a temp file then move ===
+HELLO world
+foo bar
+HELLO again
+
+Both correct methods preserve all three lines and apply the substitution.
+    [PASS] 04 ex3 in-place sed
+
+>>> 04 ex4/5 boot sample
+=== Ex4: avg / median / max 'Startup finished' time across the 3 boots ===
+boots=3  avg=8.47s  max=9.10s  median=8.42s
+
+=== Ex5: messages NOT shared by all three boots ===
+NetworkManager: connected to wifi-home
+systemd: Startup finished in 9.10s
+systemd: Startup finished in 8.42s
+systemd: Startup finished in 7.88s
+NetworkManager: connected to wifi-office
+bluetooth: paired new device headphones
+    [PASS] 04 ex4/5 boot sample
+
+>>> 05 job control
+=== Ex1: start sleep 10000 in the background, then pgrep/pkill it ===
+started 'sleep 10000' as background job, PID (for reference) = 750
+finding the job by name (pgrep or ps|grep):
+(pgrep/pkill absent — using ps | grep | kill, still no PID typed)
+750 /usr/bin/sleep
+matched sleep process(es) killed by name
+confirmed: the sleep process is gone
+
+=== Ex2: pidwait — wait for a process to finish ===
+spawned 'sleep 3' with PID 761; pidwait will block until it exits...
+pidwait: process 761 has finished
+
+real	0m3.347s
+user	0m0.060s
+sys	0m0.261s
+    [PASS] 05 job control
+
+>>> 05 aliases
+=== Ex1: alias dc='cd' ===
+after 'dc /tmp' we are in: /tmp  (dc behaved exactly like cd)
+This alias lives permanently in ../dotfiles/.bashrc.
+
+=== Ex2: 10 most frequently used commands from history ===
+(running the pipeline on sample_history.txt for a reproducible result)
+     16 git
+      5 ls
+      4 cd
+      3 vim
+      2 python
+
+The exact interactive command from the lecture is:
+  history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10
+(use `history 1` on ZSH). Good alias candidates from a typical history:
+  git -> g,  git status -> gs,  git commit -> gc, etc. (see ../dotfiles/.bashrc)
+    [PASS] 05 aliases
+
+>>> 06 ex4 git stash
+warning: in the working copy of 'file.txt', LF will be replaced by CRLF the next time Git touches it
+=== working tree is clean; now modify file.txt ===
+--- git status ---
+ M file.txt
+--- git diff ---
+warning: in the working copy of 'file.txt', LF will be replaced by CRLF the next time Git touches it
+diff --git a/file.txt b/file.txt
+index e5c5c55..f53928e 100644
+--- a/file.txt
++++ b/file.txt
+@@ -1,2 +1,3 @@
+ line one
+-line two
++MODIFIED line two
++new line three
+
+=== git stash — squirrel the changes away ===
+warning: in the working copy of 'file.txt', LF will be replaced by CRLF the next time Git touches it
+Saved working directory and index state WIP on master: d7996db initial commit
+--- git status after stash (clean) ---
+--- file.txt is back to committed state ---
+line one
+line two
+
+=== git log --all --oneline (note the stash refs) ===
+2866e9c WIP on master: d7996db initial commit
+f32462a index on master: d7996db initial commit
+d7996db initial commit
+--- git stash list ---
+stash@{0}: WIP on master: d7996db initial commit
+
+=== git stash pop — restore the changes ===
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   file.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (2866e9c460c7d514f776762523e8c122916e4c2c)
+--- file.txt has our edits back ---
+line one
+MODIFIED line two
+new line three
+
+Use case: stash lets you switch branches / pull without committing
+half-finished work, then reapply it afterwards.
+    [PASS] 06 ex4 git stash
+
+>>> 06 ex3 scrub history
+=== commit some normal files plus a 'secret' file across two commits ===
+warning: in the working copy of 'app.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'secrets.env', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app.py', LF will be replaced by CRLF the next time Git touches it
+--- secrets.env IS in history right now ---
+61b19bb oops, committed secrets.env
+ secrets.env | 1 +
+ 1 file changed, 1 insertion(+)
+commits that contain secrets.env:
+61b19bb oops, committed secrets.env
+
+=== scrub secrets.env from ALL of history ===
+--- is secrets.env still anywhere in history? ---
+GONE: no commit references secrets.env any more
+--- working tree ---
+app.py
+
+In practice, prefer: git filter-repo --path secrets.env --invert-paths
+or the BFG:          bfg --delete-files secrets.env
+and then force-push. Rotate the leaked credential regardless!
+    [PASS] 06 ex3 scrub history
+
+>>> 07 ex2 pdb demo
+buggy_sum([10, 20, 30, 40]) = 90   (wrong: skips the first 10)
+fixed_sum([10, 20, 30, 40]) = 100   (correct)
+builtin sum([10, 20, 30, 40]) = 100
+fixed_sum matches builtin sum() -> bug understood and corrected
+    [PASS] 07 ex2 pdb demo
+
+>>> 07 ex5 profile sorts
+=== cProfile: insertion_sort on 2000 random ints ===
+         3 function calls in 0.377 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.377    0.377    0.377    0.377 D:\Project\programming\missing-semester\07-debugging-profiling\sorts.py:13(insertion_sort)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+
+
+
+=== cProfile: quicksort (allocating) on 2000 random ints ===
+         8001 function calls (5335 primitive calls) in 0.014 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+   2667/1    0.007    0.000    0.014    0.014 D:\Project\programming\missing-semester\07-debugging-profiling\sorts.py:26(quicksort)
+     1333    0.003    0.000    0.003    0.000 D:\Project\programming\missing-semester\07-debugging-profiling\sorts.py:32(<listcomp>)
+     1333    0.003    0.000    0.003    0.000 D:\Project\programming\missing-semester\07-debugging-profiling\sorts.py:33(<listcomp>)
+     2667    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+=== cProfile: quicksort_inplace on 2000 random ints ===
+         2667 function calls (3 primitive calls) in 0.011 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+   2665/1    0.011    0.000    0.011    0.011 D:\Project\programming\missing-semester\07-debugging-profiling\sorts.py:37(quicksort_inplace)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+
+
+
+=== wall-clock (best of 3, N=2000) ===
+  insertion_sort       146.64 ms
+  quicksort              5.44 ms
+  quicksort_inplace      4.16 ms
+    [PASS] 07 ex5 profile sorts
+
+>>> 07 ex6 fib callgraph
+=== call counts for fib(20) ===
+  fib_naive :  21891 calls
+  fib_memo  :     39 calls
+  speedup in call count: 561.3x fewer calls
+
+  (naive call count equals 2*F(n+1) - 1, the exponential blow-up)
+
+wrote call graph to fib_callgraph.png (fib_naive(15))
+    [PASS] 07 ex6 fib callgraph
+
+>>> 09 ex1 entropy
+=== (a) four random words from a 100,000-word dictionary ===
+  search space = 100000^4 = 1.000e+20
+  entropy      = 4*log2(100000) = 66.4 bits
+
+=== (b) 8-character alphanumeric password ===
+  search space = 62^8 = 2.183e+14
+  entropy      = 8*log2(62) = 47.6 bits
+
+=== (c) which is stronger? ===
+  66.4 bits vs 47.6 bits -> passphrase (a) is stronger
+
+=== (d) average crack time at 10,000 guesses/sec ===
+  (a) passphrase     158,548,959.9 years
+  (b) alphanumeric   346.2 years
+    [PASS] 09 ex1 entropy
+
+>>> 09 ex2 hash verify
+=== simulate a 'downloaded' file and its published SHA-256 ===
+published SHA-256: cb0675d0b60c15b73620a789320d2e1a81437c98ce021b0f4bf0c10745b583f9
+
+=== verify the intact file ===
+computed SHA-256 : cb0675d0b60c15b73620a789320d2e1a81437c98ce021b0f4bf0c10745b583f9
+MATCH -> file is authentic and intact  [OK]
+
+=== now tamper with one byte and re-verify ===
+computed SHA-256 : 86fdd7d97deaaad1e57ce73fd57860f7de99b743db54ea08195bb47e1166366f
+MISMATCH detected -> tampering caught by the avalanche effect  [OK]
+
+--- The real Debian workflow (verbatim) ---
+  # download the image and the checksum file from a mirror
+  curl -LO https://cdimage.debian.org/.../debian-12.5.0-amd64-netinst.iso
+  curl -LO https://cdimage.debian.org/.../SHA256SUMS
+  # verify: this prints "<iso>: OK" if the hash matches the published one
+  sha256sum -c SHA256SUMS 2>/dev/null | grep netinst
+    [PASS] 09 ex2 hash verify
+
+>>> 09 ex3 symmetric AES
+=== create a plaintext file ===
+plaintext (secret.txt):
+This is a confidential message.
+Attack at dawn. Bring coffee.
+sha256(plaintext): 6b4157960bd5dc57d269722c89ebf8976e1162532b335e250d9326dc1a5987f1
+
+=== encrypt with AES-256-CBC (salted) ===
+ciphertext (secret.enc), hexdump head:
+000000 53 61 6c 74 65 64 5f 5f b8 d3 fa 44 61 db f3 b6  >Salted__...Da...<
+000010 84 da ca 90 54 8b b5 8e e8 8e de 64 df b0 94 ee  >....T......d....<
+000020 d7 31 62 d3 25 e4 c1 f6 af 7b e9 aa a7 65 55 54  >.1b.%....{...eUT<
+000030 c0 e8 5b 36 31 7a 18 9c 0f 4e ae 24 d8 be f0 87  >..[61z...N.$....<
+note: the 'Salted__' magic + 8-byte salt prefix the ciphertext.
+
+=== decrypt ===
+decrypted (decrypted.txt):
+This is a confidential message.
+Attack at dawn. Bring coffee.
+
+=== confirm decrypted == original with cmp ===
+cmp: decrypted file is IDENTICAL to the original  [OK]
+
+=== (demo) a wrong passphrase fails to decrypt ===
+wrong passphrase correctly rejected (bad decrypt / padding error)
+    [PASS] 09 ex3 symmetric AES
+
+=================== SUMMARY ===================
+passed: 17   failed: 0
+ALL VERIFIABLE EXERCISES PASSED

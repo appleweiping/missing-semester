@@ -1,0 +1,9 @@
+# Python dependencies used by the debugging/profiling and other Python exercises.
+# Install into the shared csdiy venv, e.g.:
+#   uv pip install --python D:\Project\_csdiy\.venv-ml\Scripts\python.exe -r requirements.txt
+#
+# matplotlib is used by the metaprogramming plot; the profilers by lecture 7.
+matplotlib>=3.7
+line_profiler>=4.0
+memory_profiler>=0.61
+pycallgraph2>=1.1
