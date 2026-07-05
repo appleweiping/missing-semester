@@ -1,0 +1,35 @@
+; ~/.gitconfig — Missing Semester dotfiles
+; The `graph` alias is exactly the version-control lecture exercise 5.
+
+[user]
+	; fill in your own name/email
+	name = Your Name
+	email = you@example.com
+
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore_global   ; version-control exercise 6
+
+[alias]
+	; version-control lecture, exercise 5
+	graph = log --all --graph --decorate --oneline
+	st = status -sb
+	co = checkout
+	br = branch
+	ci = commit
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	amend = commit --amend --no-edit
+
+[color]
+	ui = auto
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+; metaprogramming / version-control: sign commits (security lecture ex 4d)
+; [commit]
+;	gpgsign = true

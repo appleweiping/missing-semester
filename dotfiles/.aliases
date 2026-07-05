@@ -1,0 +1,10 @@
+# ~/.aliases — kept separate so it can be shared across bash/zsh
+# marco/polo helpers from the shell-tools lecture live in functions.sh,
+# but here are a few standalone conveniences.
+
+alias serve='python -m http.server'
+alias path='echo $PATH | tr ":" "\n"'
+alias now='date +"%Y-%m-%d %H:%M:%S"'
+alias week='date +%V'
+alias ports='netstat -tulanp 2>/dev/null || ss -tulanp'
+alias mkd='mkdir -pv'

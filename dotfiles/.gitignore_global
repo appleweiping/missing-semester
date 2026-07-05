@@ -1,0 +1,33 @@
+# ~/.gitignore_global — version-control lecture, exercise 6
+# Excludes OS- and editor-specific junk from every repo.
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# Vim
+*.swp
+*.swo
+*.un~
+Session.vim
+
+# Emacs
+\#*\#
+.\#*
+
+# VS Code
+.vscode/
