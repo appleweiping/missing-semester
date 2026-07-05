@@ -1,0 +1,62 @@
+
+=== Ex1: which shell am I using? ===
+$SHELL = /usr/bin/bash
+actual interpreter: bash
+
+=== Ex2-4: create /tmp/missing and touch a file 'semester' ===
+-rw-r--r-- 1 admin 197121 0  7月  5 23:41 semester
+
+=== Ex5: write the two-line script (single quotes so # and ! are literal) ===
+#!/bin/sh
+curl --head --silent https://missing.csail.mit.edu
+
+=== Ex6: try ./semester before it is executable -> Permission denied ===
+HTTP/1.1 200 Connection established
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 14737
+Server: GitHub.com
+Content-Type: text/html; charset=utf-8
+Last-Modified: Tue, 09 Jun 2026 16:44:33 GMT
+Access-Control-Allow-Origin: *
+ETag: "6a2842f1-3991"
+expires: Sun, 05 Jul 2026 15:51:20 GMT
+Cache-Control: max-age=600
+x-proxy-cache: MISS
+X-GitHub-Request-Id: 7C76:1EE033:6987E5:6CEF33:6A4A7B20
+Accept-Ranges: bytes
+Age: 0
+Date: Sun, 05 Jul 2026 15:41:20 GMT
+Via: 1.1 varnish
+X-Served-By: cache-hkg17929-HKG
+X-Cache: MISS
+X-Cache-Hits: 0
+X-Timer: S1783266080.113338,VS0,VE275
+Vary: Accept-Encoding
+X-Fastly-Request-ID: d6baca1ef33816029fb65e09c23e8015d973fe84
+
+(unexpectedly ran)
+permissions were: -rwxr-xr-x  (no x bits)
+
+=== Ex7: run via 'sh semester' -> works because sh reads the file as input ===
+HTTP/1.1 200 Connection established
+
+HTTP/1.1 200 OK
+...(sh does not need the execute bit; it just reads the file)
+
+=== Ex8-9: chmod +x then run ./semester directly (shebang is used) ===
+permissions now: -rwxr-xr-x
+HTTP/1.1 200 Connection established
+
+HTTP/1.1 200 OK
+...the kernel reads the '#!/bin/sh' shebang and runs /bin/sh on the file
+
+=== Ex10: pipe + redirect the last-modified header into ~/last-modified.txt ===
+wrote /c/Users/admin/last-modified.txt:
+Last-Modified: Tue, 09 Jun 2026 16:44:33 GMT
+
+=== Ex11: read a value from /sys (Linux). On Windows/macOS there is no /sys. ===
+/sys not present on this platform (documented in solutions.md).
+
+=== done ===
