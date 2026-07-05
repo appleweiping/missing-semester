@@ -1,9 +1,11 @@
+# shellcheck shell=bash
 # functions.sh — marco/polo from the shell-tools lecture (exercise 2)
 # Source this from your ~/.bashrc:  [ -f ~/functions.sh ] && . ~/functions.sh
 
 # marco: remember the current working directory.
 marco() {
-    export MARCO_DIR="$(pwd)"
+    MARCO_DIR="$(pwd)"
+    export MARCO_DIR
     echo "marco: saved $MARCO_DIR"
 }
 

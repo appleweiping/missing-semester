@@ -1,0 +1,46 @@
+# Ex4: publish the repo's docs to GitHub Pages automatically on push to main.
+# It renders the top-level README (and the per-lecture solutions) as the site.
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build a minimal static site from the Markdown
+        run: |
+          mkdir -p _site
+          # Copy the README as the landing page; a real setup would run a static
+          # site generator (Jekyll/MkDocs). Here we just publish the docs tree.
+          cp README.md _site/index.md
+          find . -name 'solutions.md' -not -path './_site/*' \
+            -exec bash -c 'mkdir -p "_site/$(dirname "{}")"; cp "{}" "_site/{}"' \;
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

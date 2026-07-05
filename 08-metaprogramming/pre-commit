@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Ex3: a Git pre-commit hook that builds the paper and blocks the commit if the
+# build fails, so every commit contains a paper that actually compiles.
+#
+# Install it with:
+#   ln -s ../../08-metaprogramming/pre-commit .git/hooks/pre-commit
+# (or copy it into .git/hooks/pre-commit and `chmod +x`).
+set -euo pipefail
+
+echo "[pre-commit] building paper.pdf to verify it compiles..."
+
+cd "$(git rev-parse --show-toplevel)/08-metaprogramming/paper"
+
+if make paper.pdf; then
+    echo "[pre-commit] paper built successfully — allowing commit."
+    # keep the tree clean: don't leave build artifacts staged
+    make clean >/dev/null 2>&1 || true
+    exit 0
+else
+    echo "[pre-commit] ERROR: 'make paper.pdf' failed — commit blocked." >&2
+    echo "[pre-commit] fix the build, then commit again." >&2
+    exit 1
+fi

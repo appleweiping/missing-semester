@@ -9,8 +9,8 @@ set -uo pipefail
 
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
-git init -q repo && cd repo
+cd "$WORK" || exit 1
+git init -q repo && cd repo || exit 1
 git config user.email t@t; git config user.name t
 
 echo "=== commit some normal files plus a 'secret' file across two commits ==="

@@ -12,7 +12,7 @@ alias dc='cd'
 cwd_before=$(pwd)
 dc /tmp
 echo "after 'dc /tmp' we are in: $(pwd)  (dc behaved exactly like cd)"
-cd "$cwd_before"
+cd "$cwd_before" || exit 1
 echo "This alias lives permanently in ../dotfiles/.bashrc."
 
 echo

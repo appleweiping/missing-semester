@@ -1,0 +1,21 @@
+=== files after build ===
+paper.aux
+paper.log
+paper.pdf
+plot.png
+
+=== Ex1: make clean removes all generated files ===
+rm -f plot.png paper.pdf paper.aux paper.log paper.out paper.fls \
+      paper.fdb_latexmk texput.log
+after clean:
+data.dat
+Makefile
+paper.tex
+plot-data.py
+
+=== incremental: touch data.dat, make -> only rebuilds what's needed ===
+second 'make all' with nothing changed (should say up to date):
+make: Nothing to be done for 'all'.
+touch data.dat then make:
+D:/Project/_csdiy/.venv-ml/Scripts/python.exe plot-data.py data.dat plot.png
+pdflatex -interaction=nonstopmode -halt-on-error paper.tex

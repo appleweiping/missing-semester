@@ -12,7 +12,7 @@ trap 'rm -rf "$WORK"' EXIT
 
 echo "cloning $REPO ..."
 git clone --quiet "$REPO" "$WORK/site" || { echo "clone failed (network)"; exit 1; }
-cd "$WORK/site"
+cd "$WORK/site" || exit 1
 
 echo
 echo "=== (a) history as a graph (last 15 commits) ==="

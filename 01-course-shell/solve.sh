@@ -12,7 +12,7 @@ echo "actual interpreter: $(ps -p $$ -o comm= 2>/dev/null || echo bash)"
 
 hr "Ex2-4: create /tmp/missing and touch a file 'semester'"
 mkdir -p /tmp/missing
-cd /tmp/missing
+cd /tmp/missing || exit 1
 touch semester
 ls -l semester
 

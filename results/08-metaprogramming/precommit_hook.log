@@ -1,0 +1,6 @@
+=== pre-commit hook: happy path (build succeeds -> exit 0) ===
+build OK -> hook ALLOWS commit (exit 0)
+
+=== pre-commit hook: sad path (broken tex before \end -> build fails) ===
+build FAILED (make exit nonzero) -> hook BLOCKS commit (exit 1)  [correct]
+tex restored, tree clean

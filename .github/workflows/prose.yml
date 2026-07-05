@@ -1,0 +1,29 @@
+# Ex5: a GitHub Action that runs a prose linter (write-good) on the Markdown
+# files in the repo, so writing errors are caught in CI.
+name: prose-lint
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  write-good:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install write-good
+        run: npm install -g write-good
+
+      - name: Lint Markdown prose
+        run: |
+          # Lint every solutions.md and the README. write-good flags weasel
+          # words, passive voice, lexical illusions, etc. We report but don't
+          # hard-fail on style (|| true), since prose advice is advisory.
+          files=$(git ls-files '*.md')
+          echo "linting:"; echo "$files"
+          write-good $files || true

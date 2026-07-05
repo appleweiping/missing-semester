@@ -5,7 +5,7 @@ set -uo pipefail
 
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
-cd "$work"
+cd "$work" || exit 1
 
 printf 'hello world\nfoo bar\nhello again\n' > input.txt
 echo "=== original input.txt ==="

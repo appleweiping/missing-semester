@@ -1,0 +1,26 @@
+# Ex4: a GitHub Action that runs shellcheck on every shell script in the repo.
+name: shellcheck
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      - name: Run shellcheck on all *.sh files
+        run: |
+          # Lint every shell script except the intentionally-broken teaching
+          # example (07-debugging-profiling/ex3_broken.sh), which exists so that
+          # shellcheck HAS something to complain about in that exercise.
+          # SC1090/SC1091 ("can't follow non-constant source") are excluded for
+          # scripts that source user dotfiles at runtime.
+          files=$(git ls-files '*.sh' | grep -v 'ex3_broken.sh')
+          echo "checking:"; echo "$files"
+          shellcheck --severity=warning --exclude=SC1090,SC1091 $files

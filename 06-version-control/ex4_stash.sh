@@ -5,10 +5,10 @@ set -uo pipefail
 
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
-cd "$WORK"
+cd "$WORK" || exit 1
 
 # Create a tiny local repo (self-contained, no network needed).
-git init -q repo && cd repo
+git init -q repo && cd repo || exit 1
 git config user.email t@t; git config user.name t
 printf 'line one\nline two\n' > file.txt
 git add file.txt && git commit -q -m "initial commit"

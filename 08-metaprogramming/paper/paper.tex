@@ -1,0 +1,31 @@
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+
+\title{A Tiny Paper Built by Make}
+\author{Missing Semester --- Metaprogramming exercise}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+This document exists to demonstrate a real build system. The figure below is
+generated from \texttt{data.dat} by \texttt{plot-data.py}; the PDF is produced
+from this \texttt{.tex} source. \texttt{make} wires the dependency chain
+together so that touching either the data or the plotting script rebuilds only
+what is necessary.
+
+\section{Results}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\textwidth]{plot.png}
+  \caption{Data plotted by the build pipeline.}
+\end{figure}
+
+\section{Conclusion}
+The build is fully described by the \texttt{Makefile}: \texttt{paper.pdf}
+depends on \texttt{plot.png}, which depends on \texttt{data.dat} and the
+plotting script. A \texttt{clean} target removes every generated artifact.
+
+\end{document}
