@@ -1,0 +1,37 @@
+############ Ex1: fancy ls ############
+total 24K
+drwxr-xr-x 1 admin 197121   0  7月  5 23:42 ..
+-rwxr-xr-x 1 admin 197121 628  7月  5 23:42 ex1_ls.sh
+-rwxr-xr-x 1 admin 197121 921  7月  5 23:42 ex3_rununtilfail.sh
+-rwxr-xr-x 1 admin 197121 769  7月  5 23:42 ex4_ziphtml.sh
+-rwxr-xr-x 1 admin 197121 937  7月  5 23:42 ex5_newest.sh
+drwxr-xr-x 1 admin 197121   0  7月  5 23:42 .
+
+############ Ex2: marco/polo (from dotfiles/functions.sh) ############
+marco: saved /tmp
+wandered to /usr/bin
+polo returned to /tmp
+
+############ Ex3: run until fail (random failure) ############
+command failed after 1 attempt(s) with exit code 1
+----- captured STDOUT -----
+hello from attempt
+----- captured STDERR -----
+
+############ Ex4: zip all HTML (with spaces in names) ############
+created /tmp/tmp.qXQeu0y0W7/out.zip:
+Archive:  /tmp/tmp.qXQeu0y0W7/out.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+       15  2026-07-05 23:43   Users/admin/AppData/Local/Temp/tmp.qXQeu0y0W7/a page.html
+       15  2026-07-05 23:43   Users/admin/AppData/Local/Temp/tmp.qXQeu0y0W7/sub dir/b.htm
+---------                     -------
+       30                     2 files
+
+############ Ex5: newest file + full recency list ############
+-- single newest --
+/tmp/tmp.P7HfzcnJqu/newest.txt
+-- full list newest-first --
+/tmp/tmp.P7HfzcnJqu/newest.txt
+/tmp/tmp.P7HfzcnJqu/mid.txt
+/tmp/tmp.P7HfzcnJqu/old.txt
