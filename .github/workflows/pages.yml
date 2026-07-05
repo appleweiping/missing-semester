@@ -1,5 +1,5 @@
 # Ex4: publish the repo's docs to GitHub Pages automatically on push to main.
-# It renders the top-level README (and the per-lecture solutions) as the site.
+# Uses Jekyll so the Markdown (README + per-lecture solutions) renders as HTML.
 name: pages
 
 on:
@@ -22,18 +22,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build a minimal static site from the Markdown
+      - name: Assemble the site source
         run: |
-          mkdir -p _site
-          # Copy the README as the landing page; a real setup would run a static
-          # site generator (Jekyll/MkDocs). Here we just publish the docs tree.
-          cp README.md _site/index.md
-          find . -name 'solutions.md' -not -path './_site/*' \
-            -exec bash -c 'mkdir -p "_site/$(dirname "{}")"; cp "{}" "_site/{}"' \;
+          mkdir -p _site_src
+          # Landing page = the README, rendered by Jekyll.
+          cp README.md _site_src/index.md
+          # Mirror every solutions.md so the lecture pages are browsable.
+          find . -name 'solutions.md' -not -path './_site_src/*' \
+            -exec bash -c 'mkdir -p "_site_src/$(dirname "{}")"; cp "{}" "_site_src/{}"' \;
+          # Minimal Jekyll config (theme so pages render as HTML).
+          cat > _site_src/_config.yml <<'YML'
+          title: The Missing Semester — Worked Exercises
+          description: Verified solutions to the MIT Missing Semester exercises
+          theme: jekyll-theme-minimal
+          YML
+
+      - uses: actions/configure-pages@v5
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./_site_src
+          destination: ./_site
 
       - uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
 
   deploy:
     needs: build
