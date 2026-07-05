@@ -1,0 +1,33 @@
+cloning https://github.com/missing-semester/missing-semester ...
+
+=== (a) history as a graph (last 15 commits) ===
+* 575bf9f (HEAD -> master, origin/master, origin/HEAD) Bump actions/checkout from 6 to 7 in the actions group (#385)
+*   f71203e Merge pull request #382 from JasonLuo-4/fix-lecture2-typos
+|\  
+| * 8b51b99 Fix two typos in Lecture 2 exercises
+|/  
+*   def3237 Merge branch 'arteen1000/patch-1'
+|\  
+| * 495a201 Change wording slightly in code quality lecture
+|/  
+* 49f676c Tweak text about license
+*   5a501b8 Merge branch 'itiquette/fix/url-change'
+|\  
+| * 4f14f71 Switch to new url for swedish
+* | 46e3a32 Fix broken link
+|/  
+
+=== (b) who last modified README.md ? ===
+author: Anish Athalye <me@anishathalye.com>
+ date:   Sat Apr 25 11:01:42 2026 -0700
+ commit: 49f676c
+ subject: Tweak text about license
+
+=== (c) commit that last changed the 'collections:' line in _config.yml ===
+'collections:' is line 19 of _config.yml
+blamed commit: a88b4eac326483e29bdac5ee0a39b180948ae7fc
+--- git show of that commit's message ---
+a88b4ea  Anish Athalye  Fri Jan 17 15:26:30 2020 -0500
+Redo lectures as a collection
+
+

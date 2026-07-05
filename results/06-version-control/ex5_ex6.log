@@ -1,0 +1,32 @@
+## Ex5: 'git graph' alias defined in dotfiles/.gitconfig
+log --all --graph --decorate --oneline
+
+## Ex6: core.excludesfile / global gitignore in dotfiles/.gitconfig
+~/.gitignore_global
+--- contents of the committed global ignore ---
+# ~/.gitignore_global — version-control lecture, exercise 6
+# Excludes OS- and editor-specific junk from every repo.
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+## Prove the alias works with a scratch repo + this gitconfig ##
+warning: in the working copy of 'a', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'a', LF will be replaced by CRLF the next time Git touches it
+* ed5b3ab (HEAD -> master) c2
+* 6c9ee12 c1

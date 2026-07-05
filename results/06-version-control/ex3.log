@@ -1,0 +1,20 @@
+=== commit some normal files plus a 'secret' file across two commits ===
+warning: in the working copy of 'app.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'secrets.env', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app.py', LF will be replaced by CRLF the next time Git touches it
+--- secrets.env IS in history right now ---
+27d1c87 oops, committed secrets.env
+ secrets.env | 1 +
+ 1 file changed, 1 insertion(+)
+commits that contain secrets.env:
+27d1c87 oops, committed secrets.env
+
+=== scrub secrets.env from ALL of history ===
+--- is secrets.env still anywhere in history? ---
+GONE: no commit references secrets.env any more
+--- working tree ---
+app.py
+
+In practice, prefer: git filter-repo --path secrets.env --invert-paths
+or the BFG:          bfg --delete-files secrets.env
+and then force-push. Rotate the leaked credential regardless!
