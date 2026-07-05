@@ -1,0 +1,28 @@
+buggy_sum([10, 20, 30, 40]) = 90   (wrong: skips the first 10)
+fixed_sum([10, 20, 30, 40]) = 100   (correct)
+builtin sum([10, 20, 30, 40]) = 100
+fixed_sum matches builtin sum() -> bug understood and corrected
+> d:\project\programming\missing-semester\07-debugging-profiling\ex2_pdb_demo.py(1)<module>()
+-> """Ex2: a small buggy function to practise pdb on.
+(Pdb) Breakpoint 1 at d:\project\programming\missing-semester\07-debugging-profiling\ex2_pdb_demo.py:23
+(Pdb) > d:\project\programming\missing-semester\07-debugging-profiling\ex2_pdb_demo.py(24)buggy_sum()
+-> total = 0
+(Pdb) xs = [10, 20, 30, 40]
+(Pdb) [10, 20, 30, 40]
+(Pdb) > d:\project\programming\missing-semester\07-debugging-profiling\ex2_pdb_demo.py(25)buggy_sum()
+-> for i in range(1, len(xs)):   # BUG: should start at 0
+(Pdb) > d:\project\programming\missing-semester\07-debugging-profiling\ex2_pdb_demo.py(26)buggy_sum()
+-> total += xs[i]
+(Pdb) 0
+(Pdb) 1
+(Pdb) buggy_sum([10, 20, 30, 40]) = 90   (wrong: skips the first 10)
+fixed_sum([10, 20, 30, 40]) = 100   (correct)
+builtin sum([10, 20, 30, 40]) = 100
+fixed_sum matches builtin sum() -> bug understood and corrected
+The program finished and will be restarted
+> d:\project\programming\missing-semester\07-debugging-profiling\ex2_pdb_demo.py(1)<module>()
+-> """Ex2: a small buggy function to practise pdb on.
+(Pdb) 4
+(Pdb) > d:\project\programming\missing-semester\07-debugging-profiling\ex2_pdb_demo.py(24)buggy_sum()
+-> total = 0
+(Pdb) 

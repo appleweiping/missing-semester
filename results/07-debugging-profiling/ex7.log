@@ -1,0 +1,13 @@
+starting: D:/Project/_csdiy/.venv-ml/Scripts/python.exe -m http.server 4444 (in the background)
+http.server is up (bash job pid 196)
+
+=== find the process listening on :4444 ===
+using: netstat -ano | grep :4444 (Windows)
+  TCP    0.0.0.0:4444           0.0.0.0:0              LISTENING       6000
+  TCP    [::]:4444              [::]:0                 LISTENING       6000
+note: netstat reports the Windows PID; we kill via the bash job pid.
+listening socket owner PID (reported): 6000
+
+=== kill it ===
+sent SIGTERM to 196
+confirmed: server on :4444 is gone

@@ -1,0 +1,53 @@
+Timer unit: 1e-07 s
+
+Total time: 0.769519 s
+File: D:\Project\programming\missing-semester\07-debugging-profiling\sorts.py
+Function: insertion_sort at line 13
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    13                                           def insertion_sort(array):
+    14                                               """Classic O(n^2) insertion sort. Returns a new sorted list."""
+    15         1        116.0    116.0      0.0      array = list(array)
+    16      1500       7992.0      5.3      0.1      for i in range(1, len(array)):
+    17      1499       5946.0      4.0      0.1          key = array[i]
+    18      1499       6875.0      4.6      0.1          j = i - 1
+    19    566153    3039766.0      5.4     39.5          while j >= 0 and array[j] > key:
+    20    564654    2714752.0      4.8     35.3              array[j + 1] = array[j]
+    21    564654    1907720.0      3.4     24.8              j -= 1
+    22      1499      11956.0      8.0      0.2          array[j + 1] = key
+    23         1         68.0     68.0      0.0      return array
+
+Total time: 0.0172907 s
+File: D:\Project\programming\missing-semester\07-debugging-profiling\sorts.py
+Function: quicksort at line 26
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    26                                           def quicksort(array):
+    27                                               """Simple quicksort that allocates new lists each call (readable, wasteful)."""
+    28      2011      10705.0      5.3      6.2      if len(array) <= 1:
+    29      1006       2373.0      2.4      1.4          return array
+    30      1005       3387.0      3.4      2.0      pivot = array[0]
+    31      1005       6897.0      6.9      4.0      rest = array[1:]
+    32      1005      70678.0     70.3     40.9      left = [x for x in rest if x < pivot]
+    33      1005      73457.0     73.1     42.5      right = [x for x in rest if x >= pivot]
+    34      1005       5410.0      5.4      3.1      return quicksort(left) + [pivot] + quicksort(right)
+
+Total time: 1.0803 s
+File: D:\Project\programming\missing-semester\07-debugging-profiling\line_and_memory.py
+Function: line_profile.<locals>.<lambda> at line 21
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    21         1   10802957.0 1.08e+07    100.0      wrapped = lp(lambda: (insertion_sort(data), quicksort(list(data))))
+
+=== peak memory (MiB) via memory_profiler.memory_usage ===
+  insertion_sort           peak + 0.035 MiB (baseline 55.9)
+  quicksort (allocating)   peak + 0.137 MiB (baseline 55.9)
+  quicksort_inplace        peak + 0.000 MiB (baseline 56.1)
+
+Insertion sort sorts a single list in place (O(1) extra memory),
+while the allocating quicksort builds fresh left/right lists at every
+level of recursion (O(n log n) extra memory). That is insertion
+sort's advantage: lower memory footprint despite worse time.

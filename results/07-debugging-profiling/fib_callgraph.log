@@ -1,0 +1,8 @@
+=== call counts for fib(20) ===
+  fib_naive :  21891 calls
+  fib_memo  :     39 calls
+  speedup in call count: 561.3x fewer calls
+
+  (naive call count equals 2*F(n+1) - 1, the exponential blow-up)
+
+wrote call graph to fib_callgraph.png (fib_naive(15))

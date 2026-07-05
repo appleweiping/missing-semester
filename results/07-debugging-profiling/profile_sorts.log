@@ -1,0 +1,42 @@
+=== cProfile: insertion_sort on 2000 random ints ===
+         3 function calls in 0.407 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.407    0.407    0.407    0.407 D:\Project\programming\missing-semester\07-debugging-profiling\sorts.py:13(insertion_sort)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+
+
+
+=== cProfile: quicksort (allocating) on 2000 random ints ===
+         8001 function calls (5335 primitive calls) in 0.015 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+   2667/1    0.007    0.000    0.015    0.015 D:\Project\programming\missing-semester\07-debugging-profiling\sorts.py:26(quicksort)
+     1333    0.004    0.000    0.004    0.000 D:\Project\programming\missing-semester\07-debugging-profiling\sorts.py:33(<listcomp>)
+     1333    0.004    0.000    0.004    0.000 D:\Project\programming\missing-semester\07-debugging-profiling\sorts.py:32(<listcomp>)
+     2667    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+=== cProfile: quicksort_inplace on 2000 random ints ===
+         2667 function calls (3 primitive calls) in 0.011 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+   2665/1    0.011    0.000    0.011    0.011 D:\Project\programming\missing-semester\07-debugging-profiling\sorts.py:37(quicksort_inplace)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+
+
+
+=== wall-clock (best of 3, N=2000) ===
+  insertion_sort       161.22 ms
+  quicksort              5.74 ms
+  quicksort_inplace      4.10 ms

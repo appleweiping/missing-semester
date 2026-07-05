@@ -19,3 +19,6 @@ Thumbs.db
 # Results are committed intentionally, but ignore huge downloads
 **/*.iso
 **/*.deb
+07-debugging-profiling/fib_callgraph.png
+07-debugging-profiling/fib_callgraph.dot
+07-debugging-profiling/__pycache__/

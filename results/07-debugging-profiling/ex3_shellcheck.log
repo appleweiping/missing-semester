@@ -1,0 +1,28 @@
+############ shellcheck on the BROKEN script ############
+
+In ex3_broken.sh line 11:
+for f in $(ls *.m3u)
+         ^---------^ SC2045 (error): Iterating over ls output is fragile. Use globs.
+              ^-- SC2035 (info): Use ./*glob* or -- *glob* so names with dashes won't become options.
+
+
+In ex3_broken.sh line 13:
+  grep -qi hq.*mp3 $f \
+           ^-----^ SC2062 (warning): Quote the grep pattern so the shell won't interpret it.
+                   ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean: 
+  grep -qi hq.*mp3 "$f" \
+
+
+In ex3_broken.sh line 14:
+    && echo -e 'Playlist $f contains a HQ file in mp3 format'
+               ^-- SC2016 (info): Expressions don't expand in single quotes, use double quotes for that.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2045 -- Iterating over ls output is fragi...
+  https://www.shellcheck.net/wiki/SC2062 -- Quote the grep pattern so the she...
+  https://www.shellcheck.net/wiki/SC2016 -- Expressions don't expand in singl...
+
+############ shellcheck on the FIXED script (should be clean) ############
+shellcheck: no issues found in ex3_fixed.sh
