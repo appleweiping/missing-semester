@@ -8,7 +8,7 @@
 #   PYTHON="D:/Project/_csdiy/.venv-ml/Scripts/python.exe" \
 #   PATH="D:/devtools/bin:$PATH" bash run_all.sh
 set -uo pipefail
-cd "$(dirname "${BASH_SOURCE[0]}")"
+cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
 PY="${PYTHON:-python}"
 pass=0; fail=0
