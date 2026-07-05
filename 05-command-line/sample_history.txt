@@ -1,0 +1,30 @@
+git status
+git add .
+git commit -m wip
+ls -la
+cd project
+git status
+vim main.py
+git push
+ls
+git status
+cd ..
+git log
+python main.py
+git status
+git add .
+git commit -m fix
+ls
+vim README.md
+git push
+git status
+cd src
+ls -la
+git diff
+python test.py
+git status
+git add .
+cd ..
+ls
+vim config.yaml
+git commit -m done

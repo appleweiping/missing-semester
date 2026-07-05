@@ -1,0 +1,16 @@
+=== Ex1: alias dc='cd' ===
+after 'dc /tmp' we are in: /tmp  (dc behaved exactly like cd)
+This alias lives permanently in ../dotfiles/.bashrc.
+
+=== Ex2: 10 most frequently used commands from history ===
+(running the pipeline on sample_history.txt for a reproducible result)
+     16 git
+      5 ls
+      4 cd
+      3 vim
+      2 python
+
+The exact interactive command from the lecture is:
+  history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10
+(use `history 1` on ZSH). Good alias candidates from a typical history:
+  git -> g,  git status -> gs,  git commit -> gc, etc. (see ../dotfiles/.bashrc)

@@ -1,0 +1,11 @@
+# SSH verification (ex1 keygen, ex2 config parse)
+## ex1: ssh-keygen -o -a 100 -t ed25519 produces a valid ed25519 key
+256 SHA256:MymRJqW0YELsEXJ8ciiTKE3xENhinlWZbRxmC4Fy4Zs admin@LAPTOP-3TQUS51M (ED25519)
+
+## ex2: ssh -G resolves the Host vm block from the config
+Pseudo-terminal will not be allocated because stdin is not a terminal.
+host vm
+user demo
+hostname 192.0.2.10
+localforward 9999 [localhost]:8888
+identityfile ~/.ssh/id_ed25519

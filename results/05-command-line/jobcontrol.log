@@ -1,0 +1,15 @@
+=== Ex1: start sleep 10000 in the background, then pgrep/pkill it ===
+started 'sleep 10000' as background job, PID (for reference) = 1870
+finding the job by name (pgrep or ps|grep):
+(pgrep/pkill absent — using ps | grep | kill, still no PID typed)
+1870 /usr/bin/sleep
+matched sleep process(es) killed by name
+confirmed: the sleep process is gone
+
+=== Ex2: pidwait — wait for a process to finish ===
+spawned 'sleep 3' with PID 1881; pidwait will block until it exits...
+pidwait: process 1881 has finished
+
+real	0m3.389s
+user	0m0.138s
+sys	0m0.183s
