@@ -1,5 +1,8 @@
 # Downloaded/generated artifacts (produced by scripts at runtime)
 04-data-wrangling/data/words
+04-data-wrangling/data/population.csv
+04-data-wrangling/data/population_raw.csv
+# keep the committed offline fallback: population_sample.csv
 **/*.pyc
 __pycache__/
 .vim/pack/
