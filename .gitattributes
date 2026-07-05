@@ -1,0 +1,12 @@
+# Keep shell scripts and config with LF so they stay runnable on Unix/macOS.
+*.sh        text eol=lf
+*.bash      text eol=lf
+.bashrc     text eol=lf
+.aliases    text eol=lf
+.vimrc      text eol=lf
+.gitconfig  text eol=lf
+.tmux.conf  text eol=lf
+.gitignore_global text eol=lf
+Makefile    text eol=lf
+*.txt       text
+*.md        text
