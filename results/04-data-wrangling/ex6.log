@@ -1,0 +1,17 @@
+fetching dataset with curl ...
+got 17196 rows
+World population 2000 = 6161884811 ; 2020 = 7854748424
+
+two-column numeric data (col1=year2000, col2=year2020), first 5 rows:
+24546509,28966574
+6470194,12617036
+65425961,83384680
+63007815,71641484
+312909691,369670740
+(248 rows total)
+
+=== min and max of column 1 (single awk pipeline) ===
+min=9544  max=6161884811
+
+=== difference between the sums of the two columns (single pipeline) ===
+sum(col2) - sum(col1) = 18735473074

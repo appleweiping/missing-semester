@@ -1,0 +1,13 @@
+BOOT0 12:00:01 kernel: Linux version 5.15
+BOOT0 12:00:02 systemd: Startup finished in 8.42s
+BOOT0 12:00:03 NetworkManager: connected to wifi-home
+BOOT0 12:00:04 systemd: Reached target Graphical Interface
+BOOT1 09:15:01 kernel: Linux version 5.15
+BOOT1 09:15:02 systemd: Startup finished in 9.10s
+BOOT1 09:15:03 NetworkManager: connected to wifi-office
+BOOT1 09:15:04 systemd: Reached target Graphical Interface
+BOOT2 21:30:01 kernel: Linux version 5.15
+BOOT2 21:30:02 systemd: Startup finished in 7.88s
+BOOT2 21:30:03 NetworkManager: connected to wifi-home
+BOOT2 21:30:04 systemd: Reached target Graphical Interface
+BOOT2 21:30:05 bluetooth: paired new device headphones

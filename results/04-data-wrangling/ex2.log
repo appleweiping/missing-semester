@@ -1,0 +1,14 @@
+=== dictionary: 04-data-wrangling/data/words (99170 lines) ===
+(a+b) words with >=3 a's and no "'s" ending: 833
+
+=== three most common last-two-letters (case-insensitive) ===
+    101 an
+     63 ns
+     51 ia
+
+=== number of distinct two-letter endings: 110 ===
+
+=== (challenge) two-letter combinations that NEVER occur as an ending ===
+count of never-occurring endings: 566
+first 20 of them:
+ab af ai aj ao ap aq au av aw bb bc bd be bf bg bh bi bj bk 

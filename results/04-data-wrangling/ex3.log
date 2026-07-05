@@ -1,0 +1,25 @@
+=== original input.txt ===
+hello world
+foo bar
+hello again
+
+=== the WRONG way:  sed '...' input.txt > input.txt ===
+The shell opens (and truncates) input.txt for '>' BEFORE sed starts
+reading it. sed then reads an already-empty file. Result: data lost.
+--- bad.txt after the redirect trick (empty!) ---
+[bad.txt is 0 bytes]
+
+Is this particular to sed?  No — it is the SHELL doing the truncation,
+so the same footgun applies to awk, grep, tr, cat ... any 'cmd f > f'.
+
+=== the RIGHT way #1:  sed -i (in-place, from man sed) ===
+HELLO world
+foo bar
+HELLO again
+
+=== the RIGHT way #2:  write to a temp file then move ===
+HELLO world
+foo bar
+HELLO again
+
+Both correct methods preserve all three lines and apply the substitution.

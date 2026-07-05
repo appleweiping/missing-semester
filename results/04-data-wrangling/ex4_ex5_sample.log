@@ -1,0 +1,10 @@
+=== Ex4: avg / median / max 'Startup finished' time across the 3 boots ===
+boots=3  avg=8.47s  max=9.10s  median=8.42s
+
+=== Ex5: messages NOT shared by all three boots ===
+NetworkManager: connected to wifi-home
+systemd: Startup finished in 9.10s
+systemd: Startup finished in 8.42s
+systemd: Startup finished in 7.88s
+NetworkManager: connected to wifi-office
+bluetooth: paired new device headphones

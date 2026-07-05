@@ -1,5 +1,5 @@
 # Downloaded/generated artifacts (produced by scripts at runtime)
-data-wrangling/data/words
+04-data-wrangling/data/words
 **/*.pyc
 __pycache__/
 .vim/pack/
