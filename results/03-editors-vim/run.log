@@ -1,0 +1,31 @@
+# editors lecture — verification log
+## ex3: ctrlp.vim plugin clones successfully (see above)
+## ex8: headless Vim macro converts people.xml -> people.json
+--- input people.xml ---
+<person>
+<name>Bill Gates</name>
+<age>72</age>
+</person>
+<person>
+<name>Steve Jobs</name>
+<age>66</age>
+</person>
+<person>
+<name>Linus Torvalds</name>
+<age>52</age>
+</person>
+--- output people.json (jq-validated) ---
+[
+  {
+    "name": "Bill Gates",
+    "age": 72
+  },
+  {
+    "name": "Steve Jobs",
+    "age": 66
+  },
+  {
+    "name": "Linus Torvalds",
+    "age": 52
+  }
+]
