@@ -1,0 +1,24 @@
+=== create a plaintext file ===
+plaintext (secret.txt):
+This is a confidential message.
+Attack at dawn. Bring coffee.
+sha256(plaintext): 6b4157960bd5dc57d269722c89ebf8976e1162532b335e250d9326dc1a5987f1
+
+=== encrypt with AES-256-CBC (salted) ===
+ciphertext (secret.enc), hexdump head:
+000000 53 61 6c 74 65 64 5f 5f 79 09 dc eb de ee 3a b8  >Salted__y.....:.<
+000010 ce b9 42 1f 23 27 b0 bb 3b b8 ec 92 c7 22 12 01  >..B.#'..;...."..<
+000020 81 51 e9 44 f7 62 6e 07 00 2b ba d3 f6 65 18 b7  >.Q.D.bn..+...e..<
+000030 31 bf c5 91 80 0b a2 45 26 55 38 68 85 be 49 7a  >1......E&U8h..Iz<
+note: the 'Salted__' magic + 8-byte salt prefix the ciphertext.
+
+=== decrypt ===
+decrypted (decrypted.txt):
+This is a confidential message.
+Attack at dawn. Bring coffee.
+
+=== confirm decrypted == original with cmp ===
+cmp: decrypted file is IDENTICAL to the original  [OK]
+
+=== (demo) a wrong passphrase fails to decrypt ===
+wrong passphrase correctly rejected (bad decrypt / padding error)

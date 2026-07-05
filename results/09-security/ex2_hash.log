@@ -1,0 +1,17 @@
+=== simulate a 'downloaded' file and its published SHA-256 ===
+published SHA-256: cb0675d0b60c15b73620a789320d2e1a81437c98ce021b0f4bf0c10745b583f9
+
+=== verify the intact file ===
+computed SHA-256 : cb0675d0b60c15b73620a789320d2e1a81437c98ce021b0f4bf0c10745b583f9
+MATCH -> file is authentic and intact  [OK]
+
+=== now tamper with one byte and re-verify ===
+computed SHA-256 : 86fdd7d97deaaad1e57ce73fd57860f7de99b743db54ea08195bb47e1166366f
+MISMATCH detected -> tampering caught by the avalanche effect  [OK]
+
+--- The real Debian workflow (verbatim) ---
+  # download the image and the checksum file from a mirror
+  curl -LO https://cdimage.debian.org/.../debian-12.5.0-amd64-netinst.iso
+  curl -LO https://cdimage.debian.org/.../SHA256SUMS
+  # verify: this prints "<iso>: OK" if the hash matches the published one
+  sha256sum -c SHA256SUMS 2>/dev/null | grep netinst

@@ -1,0 +1,29 @@
+=== (a) generate an SSH key pair (ed25519, with passphrase) ===
+public key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHavW6RDcSzxDd3qoCBQgn/bfuR1jGcVAVYLhpfyq9y7 admin@LAPTOP-3TQUS51M
+fingerprint: 256 SHA256:jWrfj8HCl2vjEGbJ5/MQ7Qr5HoM6D0OQJWl6Gj1ple4 admin@LAPTOP-3TQUS51M (ED25519)
+the PRIVATE key is encrypted at rest with the passphrase (openssl/bcrypt KDF).
+
+=== (b) set up GPG — generate an unattended key ===
+gpg: keybox '/tmp/tmp.wWqtFiWsX6/gnupg/pubring.kbx' created
+gpg: revocation certificate stored as '/tmp/tmp.wWqtFiWsX6/gnupg/openpgp-revocs.d/883F07B34449D69334DB453E7DC7F2367CD67DF3.rev'
+gpg: checking the trustdb
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+generated GPG key id: 7DC7F2367CD67DF3
+
+=== (d) make a SIGNED git commit and tag, then verify ===
+warning: in the working copy of 'file.txt', LF will be replaced by CRLF the next time Git touches it
+--- git log --show-signature ---
+commit 78edd9170fcdc544a21704c2945fbfe319d6dfea
+gpg: Signature made 2026年07月 6日  7:36:03    
+gpg:                using EDDSA key 883F07B34449D69334DB453E7DC7F2367CD67DF3
+gpg: Good signature from "Missing Semester <missing@example.com>" [ultimate]
+--- git verify-commit HEAD ---
+gpg: Good signature from "Missing Semester <missing@example.com>" [ultimate]
+commit signature: VERIFIED
+--- git verify-tag v1.0 ---
+gpg: Good signature from "Missing Semester <missing@example.com>" [ultimate]
+tag signature: VERIFIED
+
+(c) sending an encrypted email is documented in solutions.md:
+    gpg --encrypt --armor -r recipient@example.com message.txt

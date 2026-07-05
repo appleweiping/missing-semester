@@ -1,0 +1,14 @@
+=== (a) four random words from a 100,000-word dictionary ===
+  search space = 100000^4 = 1.000e+20
+  entropy      = 4*log2(100000) = 66.4 bits
+
+=== (b) 8-character alphanumeric password ===
+  search space = 62^8 = 2.183e+14
+  entropy      = 8*log2(62) = 47.6 bits
+
+=== (c) which is stronger? ===
+  66.4 bits vs 47.6 bits -> passphrase (a) is stronger
+
+=== (d) average crack time at 10,000 guesses/sec ===
+  (a) passphrase     158,548,959.9 years
+  (b) alphanumeric   346.2 years
